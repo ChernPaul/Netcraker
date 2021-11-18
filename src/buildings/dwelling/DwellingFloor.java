@@ -55,35 +55,35 @@ public class DwellingFloor implements Floor, Serializable,Cloneable {
         return flats[number];
     }
 
-    public void setSpace(int number, Space newFlat) {
+    public void setSpace(int number, Space newSpace) {
         if (number < 0 || number > flats.length) {
             throw new SpaceIndexOutOfBoundsException(number, flats.length);
         }
-        if (newFlat instanceof Flat) {
-            flats[number] = (Flat) newFlat;
+        if (newSpace instanceof Flat) {
+            flats[number] = (Flat) newSpace;
         }
     }
 
-    public void addSpace(int number, Space newFlat) {
+    public void addSpace(int number, Space newSpace) {
 
             if ((number - flats.length) >= 1) {
                     throw new SpaceIndexOutOfBoundsException(number, flats.length);
             }
 
            int newQuantity = flats.length + 1;
-           Flat[] tmpFlts = new Flat[newQuantity];
+           Flat[] tmpSpaces = new Flat[newQuantity];
 
            for (int i = 0; i < number; i++) {
-               tmpFlts[i] = flats[i];
+               tmpSpaces[i] = flats[i];
            }
-           if(newFlat instanceof  Flat) {
-               tmpFlts[number] = (Flat) newFlat;
+           if(newSpace instanceof  Flat) {
+               tmpSpaces[number] = (Flat) newSpace;
            }
            for (int i = number + 1; i < flats.length; i++) {
-               tmpFlts[i + 1] = flats[i];
+               tmpSpaces[i + 1] = flats[i];
            }
 
-            flats = tmpFlts;
+            flats = tmpSpaces;
     }
 
     public void removeSpace(int number) {

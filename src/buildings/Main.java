@@ -11,9 +11,11 @@ import buildings.interfaces.Space;
 import buildings.office.Office;
 import buildings.office.OfficeBuilding;
 import buildings.office.OfficeFloor;
+import buildings.threads.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 public class Main {
     public static void main(String[] args) {
@@ -490,7 +492,9 @@ public class Main {
         System.out.println( testOfficeBuilding.toString());
         System.out.println(cloneOfficeBuilding.toString());
 
-     */
+
+
+
         Flat[] flatsArr0 = new Flat[5];
         flatsArr0[0] = new Flat(222.0,2);
         flatsArr0[1] = new Flat(222.0,2);
@@ -578,7 +582,53 @@ public class Main {
         Buildings.sortSpacesBySquareCrit(obj.getFloorByNumber(0).getSpacesArray());
         System.out.println("TEST");
         System.out.println(obj.getFloorByNumber(0).toString());
-        
+        */
+        Office[] officeArr0 = new Office[5];
+        officeArr0[0] = new Office(222.0,2);
+        officeArr0[1] = new Office(222.0,2);
+        officeArr0[2] = new Office(6,11);
+        officeArr0[3] = new Office(31.5,6);
+        officeArr0[4] = new Office(66.1,5);
+
+        Office [] officeArr1 = new Office[5];
+        officeArr1[0] = new Office(222.0,2);
+        officeArr1[1] = new Office(32,6);
+        officeArr1[2] = new Office(287,3);
+        officeArr1[3] = new Office(115,4);
+        officeArr1[4] = new Office(312,8);
+
+        Office [] officeArr2 = new Office[5];
+        officeArr2[0] = new Office(222,2);
+        officeArr2[1] = new Office(262.51,7);
+        officeArr2[2] = new Office(142,5);
+        officeArr2[3] = new Office(21.32,5);
+        officeArr2[4] = new Office(122.54,10);
+
+
+        OfficeFloor[] arrOfficeFloors  = new OfficeFloor [3];
+        arrOfficeFloors[0] = new OfficeFloor(officeArr0);
+        arrOfficeFloors[1] = new OfficeFloor(officeArr1);
+        arrOfficeFloors[2] = new OfficeFloor(officeArr2);
+
+        //  Repairer rep = new Repairer(arrOfficeFloors[0]);
+        //  Cleaner cln = new Cleaner(arrOfficeFloors[0]);
+        //  rep.start();
+        //  cln.start();
+
+
+
+        SemaphoreClass testSem = new SemaphoreClass(2, false);
+        SequentRepairer seqRep = new SequentRepairer(testSem, arrOfficeFloors[0]);
+        SequentCleaner seqCln = new  SequentCleaner(testSem,arrOfficeFloors[0]);
+
+
+        seqRep.start();
+        seqCln.start();
+
+
+
+
+
 
     }
 

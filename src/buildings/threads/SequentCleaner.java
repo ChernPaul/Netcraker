@@ -7,6 +7,7 @@ public class SequentCleaner extends Thread implements Runnable {
 
     Floor floor;
     SemaphoreClass sem;
+    int threadId = 2;
 
     public SequentCleaner(SemaphoreClass sem, Floor floor){
         this.sem = sem;
@@ -20,9 +21,9 @@ public class SequentCleaner extends Thread implements Runnable {
         try {
 
             for (int i = 0; i < floor.getSpacesQuantity(); i++) {
-                sem.acquire(2);
+                sem.acquire(threadId);
                 System.out.println("Cleaning space number " + i + " with total area " + floor.getSpaceByNumber(i).getSquare() + " square meters");
-                sem.release(2);
+                sem.release(threadId);
             }
 
         } catch (InterruptedException e) {

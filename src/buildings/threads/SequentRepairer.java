@@ -1,6 +1,5 @@
 package buildings.threads;
 import buildings.interfaces.Floor;
-import java.util.concurrent.Semaphore;
 
 public class SequentRepairer extends Thread implements Runnable {
 

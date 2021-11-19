@@ -13,6 +13,7 @@ import buildings.office.OfficeBuilding;
 import buildings.office.OfficeFloor;
 import buildings.threads.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -80,7 +81,7 @@ public class Main {
         System.out.println("Result Square " + testOffice.getSquare());
 
 
-
+        //////////////////////////////////////////////////////////////////////Practice 4 test
 
 
 
@@ -248,8 +249,8 @@ public class Main {
         System.out.println("new task");
         System.out.println(testInp2);
 
-
-
+        ////////////////////////////////////////////// End practice 4 test
+        //////////////////////////////////////////////Practice 5 Main
 
         Flat[] flatsArr0 = new Flat[5];
         flatsArr0[0] = new Flat(222.0,2);
@@ -492,9 +493,9 @@ public class Main {
         System.out.println( testOfficeBuilding.toString());
         System.out.println(cloneOfficeBuilding.toString());
 
+        /////////////////////////////////////////////////////////////////////////Practice 5 end
 
-
-
+        ////////////////////////////////////////////////////////////////////////Practice 6 test
         Flat[] flatsArr0 = new Flat[5];
         flatsArr0[0] = new Flat(222.0,2);
         flatsArr0[1] = new Flat(222.0,2);
@@ -582,7 +583,11 @@ public class Main {
         Buildings.sortSpacesBySquareCrit(obj.getFloorByNumber(0).getSpacesArray());
         System.out.println("TEST");
         System.out.println(obj.getFloorByNumber(0).toString());
-        */
+
+        /////////////////////////////////////////////////////////End practice 6 test
+        ///////////////////////////////////////////////////////// Practice 7 Main
+
+
         Office[] officeArr0 = new Office[5];
         officeArr0[0] = new Office(222.0,2);
         officeArr0[1] = new Office(222.0,2);
@@ -610,11 +615,21 @@ public class Main {
         arrOfficeFloors[1] = new OfficeFloor(officeArr1);
         arrOfficeFloors[2] = new OfficeFloor(officeArr2);
 
-        //  Repairer rep = new Repairer(arrOfficeFloors[0]);
-        //  Cleaner cln = new Cleaner(arrOfficeFloors[0]);
-        //  rep.start();
-        //  cln.start();
+        Repairer rep = new Repairer(arrOfficeFloors[0]);
+        Cleaner cln = new Cleaner(arrOfficeFloors[0]);
+        rep.start();
+        cln.start();
+        try {
+            Thread.sleep(9);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        rep.interrupt();
+        System.out.println("Interrupt");
 
+        /*
+
+        System.out.println("TASK 2");
 
 
         SemaphoreClass testSem = new SemaphoreClass(2, false);
@@ -625,7 +640,65 @@ public class Main {
         seqRep.start();
         seqCln.start();
 
+        /////////////////////////////////////End practice 7 Main
 
+
+        ////////////////////////////////////////////////////Check serialize
+        Flat [] array0 = new Flat[5];
+        array0[0] = new Flat(20,2);
+        array0[1] = new Flat();
+        array0[2] = new Flat(6,10);
+        array0[3] = new Flat(32,8);
+        array0[4] = new Flat(62.1,8);
+
+
+        Flat [] array1 = new Flat[5];
+        array1[0] = new Flat(27,14);
+        array1[1] = new Flat(102.4, 4);
+        array1[2] = new Flat(6,11);
+        array1[3] = new Flat(31.5,6);
+        array1[4] = new Flat(66.1,5);
+
+        Flat [] array2 = new Flat[5];
+        array2[0] = new Flat(20,2);
+        array2[1] = new Flat(11,1);
+        array2[2] = new Flat(14.44,1);
+        array2[3] = new Flat(34,4);
+        array2[4] = new Flat(72.1,2);
+
+
+
+        DwellingFloor [] arr = new  DwellingFloor [3];
+        arr[0] = new DwellingFloor(array0);
+        arr[1] = new DwellingFloor(array1);
+        arr[2] = new DwellingFloor(array2);
+
+        System.out.println("Before deserialize Building");
+        Dwelling testBuilding = new Dwelling(arr);
+        System.out.println(testBuilding.toString());
+
+
+
+        try {
+            FileOutputStream fout = new FileOutputStream("D:\\Рабочий стол\\SerCheck.txt");
+            Buildings.serializeBuilding(testBuilding, fout);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Building newBuilding = null;
+        try {
+            FileInputStream fin = new FileInputStream("D:\\Рабочий стол\\SerCheck.txt");
+            newBuilding = Buildings.deserializeBuilding(fin);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("AfterDeserialize Building");
+        System.out.println(newBuilding.toString());
+        ////////////////////////////////////////////////////End check serialize
+
+        */
 
 
 

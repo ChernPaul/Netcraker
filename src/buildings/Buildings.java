@@ -19,12 +19,14 @@ public class Buildings {
             DataOutputStream dos = new DataOutputStream(out);
             try {
                 dos.writeInt(building.getFloorsQuantity());
+                System.out.print(building.getFloorsQuantity() + " "); ///////
             } catch (IOException e) {
                 e.printStackTrace();
             }
             for(int i = 0; i <building.getFloorsQuantity();i++){
                 try {
                     dos.writeInt(building.getFloorByNumber(i).getSpacesQuantity());
+                    System.out.print(building.getFloorByNumber(i).getSpacesQuantity()+ " ");///////////
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -32,7 +34,9 @@ public class Buildings {
 
                     try {
                         dos.writeInt(building.getFloorByNumber(i).getSpaceByNumber(j).getRoomsQuantity());
+                        System.out.print(building.getFloorByNumber(i).getSpaceByNumber(j).getRoomsQuantity()+ " ");
                         dos.writeDouble(building.getFloorByNumber(i).getSpaceByNumber(j).getSquare());
+                        System.out.print(building.getFloorByNumber(i).getSpaceByNumber(j).getSquare()+ " ");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -49,8 +53,6 @@ public class Buildings {
 
 
     public static Building inputBuilding (InputStream in){
-        OfficeFactory officeFactory = new OfficeFactory();
-        setBuildingFactory(officeFactory);
         DataInputStream dis = new DataInputStream(in);
         int floorsQuantity = 0;
         try {
@@ -62,9 +64,10 @@ public class Buildings {
 
             return null;
         }
+        Floor [] floors = new Floor[floorsQuantity];
 
 
-        Building redBuilding = new OfficeBuilding(floorsQuantity);
+                // new OfficeBuilding(floorsQuantity);
 
         for(int curFloorNum = 0; curFloorNum < floorsQuantity; curFloorNum++){
             int curSpacesQuantity = 0;
@@ -74,8 +77,7 @@ public class Buildings {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
+            floors[curFloorNum] = createFloor(curSpacesQuantity);
 
             for(int curSpaceNum = 0; curSpaceNum < curSpacesQuantity;curSpaceNum++){
                int rmsQnt = 0;
@@ -88,12 +90,12 @@ public class Buildings {
                     e.printStackTrace();
                 }
 
-                redBuilding.getFloorByNumber(curFloorNum).addSpace(curSpaceNum, buildingFactory.createSpace(rmsQnt, square));
+                floors[curFloorNum].setSpace(curSpaceNum, buildingFactory.createSpace(rmsQnt, square));
 
             }
 
         }
-
+        Building redBuilding = createBuilding(floors);
         return  redBuilding;
         //3     2{ 3 150.0 2 100.0}  1{3 250.0} 3{2 140.0 1 60.0 1 50.0}
 
